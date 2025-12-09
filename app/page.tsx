@@ -18,17 +18,17 @@ export default function Home() {
         }
         return "";
     });
-    const pad = (text) => {
+    const pad = (text:string) => {
         const blockSize = 16;
         const padding = blockSize - (text.length % blockSize);
         return text + String.fromCharCode(padding).repeat(padding);
     };
 
-    const unpad = (text) => {
+    const unpad = (text:string) => {
         const padding = text.charCodeAt(text.length - 1);
         return text.slice(0, -padding);
     };
-    const aesEncrypt = async (password, plaintext) => {
+    const aesEncrypt = async (password:string, plaintext:string) => {
         // Generate AES key from password using PBKDF2
         const key = await deriveKey(password);
 
@@ -52,7 +52,7 @@ export default function Home() {
         return btoa(String.fromCharCode(...new Uint8Array(encryptedData)));
     };
 
-    const aesDecrypt = async (password, ciphertextBase64) => {
+    const aesDecrypt = async (password:string, ciphertextBase64:string) => {
         // Generate AES key from password using PBKDF2
         const key = await deriveKey(password);
 
@@ -77,7 +77,7 @@ export default function Home() {
         // Unpad the decrypted text
         return unpad(decryptedText);
     };
-    const deriveKey = async (password) => {
+    const deriveKey = async (password:string) => {
         const encoder = new TextEncoder();
         const passwordBuffer = encoder.encode(password);
 
